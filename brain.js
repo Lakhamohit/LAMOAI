@@ -2,44 +2,63 @@ async function think(question){
 
 
 
-    let answer;
+let answer;
 
 
 
-    answer = conversation(question);
+answer = conversation(question);
 
-    if(answer){
-        return answer;
-    }
-
-
-
-
-    answer = datetime(question);
-
-    if(answer){
-        return answer;
-    }
+if(answer){
+return answer;
+}
 
 
 
+answer = memoryModule(question);
 
-
-    answer = calculator(question);
-
-    if(answer){
-        return answer;
-    }
+if(answer){
+return answer;
+}
 
 
 
 
+answer = datetime(question);
 
-    return (
-        "I received your question: "
-        + question
-        +
-        "\n\nNew knowledge modules are being developed."
-    );
+if(answer){
+return answer;
+}
+
+
+
+
+answer = calculator(question);
+
+if(answer){
+return answer;
+}
+
+
+
+
+answer = facts(question);
+
+if(answer){
+return answer;
+}
+
+
+
+
+answer = await wiki(question);
+
+if(answer){
+return answer;
+}
+
+
+
+
+return "I could not find information about that.";
 
 }

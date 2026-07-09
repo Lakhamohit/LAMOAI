@@ -4,8 +4,8 @@ function conversation(question){
 
 
     if(
-        question.includes("hello") ||
         question.includes("hi") ||
+        question.includes("hello") ||
         question.includes("hey")
     ){
 
@@ -14,23 +14,9 @@ function conversation(question){
     }
 
 
-
-    if(
-        question.includes("who are you") ||
-        question.includes("what are you")
-    ){
+    if(question.includes("who are you")){
 
         return "I am AI Core, a modular artificial intelligence system.";
-
-    }
-
-
-
-    if(
-        question.includes("thank")
-    ){
-
-        return "You're welcome.";
 
     }
 
@@ -38,3 +24,5 @@ function conversation(question){
     return null;
 
 }
+
+console.log("Conversation function ready");

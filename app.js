@@ -77,11 +77,17 @@ async function sendMessage(){
     let question = input.value.trim();
 
 
+
     if(question === ""){
 
         return;
 
     }
+
+
+
+    // Save user's message after checking it is not empty
+    saveHistory("user", question);
 
 
 
@@ -106,6 +112,11 @@ async function sendMessage(){
 
 
     addAnswer(answer);
+
+
+
+    // Save AI response
+    saveHistory("ai", answer);
 
 
 }

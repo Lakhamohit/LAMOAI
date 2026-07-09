@@ -1,85 +1,73 @@
 async function think(question){
 
+
     console.log("Brain started:", question);
 
 
-    let answer;
+
+    let intent = detectIntent(question);
 
 
-    try {
-
-
-        console.log("Checking conversation");
-
-        answer = conversation(question);
-
-        if(answer){
-            return answer;
-        }
+    console.log("Detected intent:", intent);
 
 
 
-        console.log("Checking datetime");
-
-        answer = datetime(question);
-
-        if(answer){
-            return answer;
-        }
+    switch(intent){
 
 
+        case "greeting":
 
-        console.log("Checking calculator");
-
-        answer = calculator(question);
-
-        if(answer){
-            return answer;
-        }
+            return conversation(question);
 
 
 
-        console.log("Checking facts");
+        case "datetime":
 
-        answer = facts(question);
-
-        if(answer){
-            return answer;
-        }
+            return datetime(question);
 
 
 
-        console.log("Checking memory");
+        case "calculation":
 
-        answer = memoryModule(question);
-
-        if(answer){
-            return answer;
-        }
+            return calculator(question);
 
 
 
-        console.log("Checking wiki");
+        case "memory":
 
-        answer = await wiki(question);
-
-        if(answer){
-            return answer;
-        }
+            return memoryModule(question);
 
 
 
-        return "No answer found.";
+        case "knowledge":
 
+
+            let answer = facts(question);
+
+            if(answer){
+                return answer;
+            }
+
+
+            answer = await wiki(question);
+
+            if(answer){
+                return answer;
+            }
+
+
+            break;
+
+
+
+        default:
+
+            return "I am still learning how to answer that.";
 
     }
 
-    catch(error){
 
-        console.log("BRAIN ERROR:", error);
 
-        return "Brain error detected.";
-
-    }
+    return "I could not find an answer.";
 
 }

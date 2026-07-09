@@ -6,76 +6,88 @@ const answerBox = document.getElementById("answer-box");
 
 
 
-
 function addQuestion(text){
 
+    let div = document.createElement("div");
 
-let div=document.createElement("div");
+    div.className = "user-message";
 
+    div.innerText = text;
 
-div.className="user-message";
+    questionBox.appendChild(div);
 
-
-div.innerText=text;
-
-
-questionBox.appendChild(div);
-
+    questionBox.scrollTop = questionBox.scrollHeight;
 
 }
-
-
 
 
 
 function addAnswer(text){
 
+    let div = document.createElement("div");
 
-let div=document.createElement("div");
+    div.className = "ai-message";
 
+    div.innerText = text;
 
-div.className="ai-message";
+    answerBox.appendChild(div);
 
-
-div.innerText=text;
-
-
-answerBox.appendChild(div);
-
+    answerBox.scrollTop = answerBox.scrollHeight;
 
 }
 
 
 
 
-function sendMessage(){
+async function sendMessage(){
+
+    let question = input.value.trim();
 
 
-let question=input.value.trim();
-
-
-if(!question) return;
-
-
-
-addQuestion(question);
-
-
-input.value="";
+    if(question === ""){
+        return;
+    }
 
 
 
-// Temporary brain
-
-think(question)
-.then(answer=>{
+    addQuestion(question);
 
 
-addAnswer(answer);
+    input.value = "";
+
+
+
+    addAnswer("Analyzing...");
+
+
+
+    let answer = await think(question);
+
+
+
+    let messages = document.querySelectorAll(".ai-message");
+
+    messages[messages.length - 1].remove();
+
+
+
+    addAnswer(answer);
+
+
+}
+
+
+
+input.addEventListener(
+"keypress",
+function(event){
+
+
+    if(event.key === "Enter"){
+
+        sendMessage();
+
+    }
 
 
 });
-
-
-
-}

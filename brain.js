@@ -1,93 +1,45 @@
 async function think(question){
 
 
-    question = question.toLowerCase();
+
+    let answer;
 
 
 
-    // Greeting detection
+    answer = conversation(question);
 
-    if(
-        question.includes("hello") ||
-        question.includes("hi") ||
-        question.includes("hey")
-    ){
-
-        return "Hello! I am AI Core. How can I help you?";
-
-    }
-
-
-
-    // Time detection
-
-    if(
-        question.includes("time")
-    ){
-
-        let now = new Date();
-
-        return "Current time is " + now.toLocaleTimeString();
-
+    if(answer){
+        return answer;
     }
 
 
 
 
-    // Date detection
+    answer = datetime(question);
 
-    if(
-        question.includes("date") ||
-        question.includes("today")
-    ){
-
-        let today = new Date();
-
-        return "Today is " + today.toDateString();
-
+    if(answer){
+        return answer;
     }
 
 
 
 
 
-    // Math detection
+    answer = calculator(question);
 
-    if(
-        question.includes("+") ||
-        question.includes("-") ||
-        question.includes("*") ||
-        question.includes("/")
-    ){
-
-        try{
-
-            let result = eval(question);
-
-            return "Calculation result: " + result;
-
-        }
-
-        catch{
-
-            return "I could not calculate that.";
-
-        }
-
+    if(answer){
+        return answer;
     }
 
 
 
 
-
-    // Default response
 
     return (
         "I received your question: "
         + question
         +
-        "\n\nKnowledge modules are being developed."
+        "\n\nNew knowledge modules are being developed."
     );
-
 
 }

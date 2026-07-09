@@ -67,15 +67,14 @@ input.value="";
 
 // Temporary brain
 
-setTimeout(()=>{
+think(question)
+.then(answer=>{
 
 
-addAnswer(
-"AI Core received your question. Brain module will be connected soon."
-);
+addAnswer(answer);
 
 
-},500);
+});
 
 
 

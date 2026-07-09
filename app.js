@@ -22,6 +22,7 @@ function addQuestion(text){
 
 
 
+
 function addAnswer(text){
 
     let div = document.createElement("div");
@@ -39,13 +40,47 @@ function addAnswer(text){
 
 
 
+function addThinking(){
+
+    let div = document.createElement("div");
+
+    div.className = "ai-message";
+
+    div.id = "thinking";
+
+    div.innerText = "Analyzing...";
+
+    answerBox.appendChild(div);
+
+}
+
+
+
+function removeThinking(){
+
+    let thinking = document.getElementById("thinking");
+
+    if(thinking){
+
+        thinking.remove();
+
+    }
+
+}
+
+
+
+
 async function sendMessage(){
+
 
     let question = input.value.trim();
 
 
     if(question === ""){
+
         return;
+
     }
 
 
@@ -53,11 +88,12 @@ async function sendMessage(){
     addQuestion(question);
 
 
+
     input.value = "";
 
 
 
-    addAnswer("Analyzing...");
+    addThinking();
 
 
 
@@ -65,9 +101,7 @@ async function sendMessage(){
 
 
 
-    let messages = document.querySelectorAll(".ai-message");
-
-    messages[messages.length - 1].remove();
+    removeThinking();
 
 
 
@@ -78,16 +112,15 @@ async function sendMessage(){
 
 
 
+
 input.addEventListener(
 "keypress",
 function(event){
-
 
     if(event.key === "Enter"){
 
         sendMessage();
 
     }
-
 
 });

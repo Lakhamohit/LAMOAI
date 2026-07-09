@@ -1,5 +1,58 @@
 async function think(question){
 
-    return "Brain is alive. You asked: " + question;
+
+    let answer;
+
+
+
+    answer = conversation(question);
+
+    if(answer){
+        return answer;
+    }
+
+
+
+    answer = datetime(question);
+
+    if(answer){
+        return answer;
+    }
+
+
+
+    answer = calculator(question);
+
+    if(answer){
+        return answer;
+    }
+
+
+
+    answer = facts(question);
+
+    if(answer){
+        return answer;
+    }
+
+
+
+    answer = memoryModule(question);
+
+    if(answer){
+        return answer;
+    }
+
+
+
+    answer = await wiki(question);
+
+    if(answer){
+        return answer;
+    }
+
+
+
+    return "I could not find information about that.";
 
 }

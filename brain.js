@@ -59,6 +59,6 @@ return answer;
 
 
 
-return "I could not find information about that.";
+return "Brain is working correctly.";
 
 }

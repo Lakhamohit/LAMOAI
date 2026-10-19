@@ -1,10 +1,11 @@
-// 1. arXiv Search Function
+// 1. arXiv Search Function (Using CORS Proxy)
 async function searchArxiv(query) {
     const encodedQuery = encodeURIComponent(query);
-    const url = `https://export.arxiv.org/api/query?search_query=all:${encodedQuery}&start=0&max_results=3`;
+    const targetUrl = `https://export.arxiv.org/api/query?search_query=all:${encodedQuery}&start=0&max_results=3`;
+    const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`;
 
     try {
-        const response = await fetch(url);
+        const response = await fetch(proxyUrl);
         const text = await response.text();
         
         const parser = new DOMParser();
@@ -27,10 +28,13 @@ async function searchArxiv(query) {
     }
 }
 
-// 2. Semantic Scholar Search Function
+// 2. Semantic Scholar Search Function (Using CORS Proxy)
 async function searchSemanticScholar(query) {
+    const targetUrl = `https://api.semanticscholar.org/graph/v1/paper/search?query=${encodeURIComponent(query)}&limit=3&fields=title,abstract,url,year,authors`;
+    const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`;
+
     try {
-        const response = await fetch(`https://api.semanticscholar.org/graph/v1/paper/search?query=${encodeURIComponent(query)}&limit=3&fields=title,abstract,url,year,authors`);
+        const response = await fetch(proxyUrl);
         const data = await response.json();
         
         if (!data.data) return [];
@@ -49,12 +53,10 @@ async function searchSemanticScholar(query) {
 
 // 3. Combined Master Search Function
 async function searchAllAcademicSources(query) {
-    // Run both requests at the same time for faster loading
     const [arxivResults, semanticResults] = await Promise.all([
         searchArxiv(query),
         searchSemanticScholar(query)
     ]);
 
-    // Merge both arrays together
     return [...arxivResults, ...semanticResults];
 }
